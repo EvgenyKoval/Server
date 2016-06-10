@@ -18,11 +18,16 @@ public class MainServlet extends HttpServlet {
         String data = request.getParameter("data");
         Boolean isLast = Boolean.valueOf(request.getParameter("isLast"));
 
-        data = Base64.base64Decode(data);
+        if (partNumber != null || hash != null || data != null || isLast != null) {
+            response.sendError(400, "REPEAT");
+            return;
+        }
+            data = Base64.base64Decode(data);
 
-        if (hash.equals(DigestUtils.md5Hex(data))) {
-            Saver saver = new Saver(partNumber, data, isLast);
-            saver.savePart();
+            if (hash.equals(DigestUtils.md5Hex(data))) {
+                Saver saver = new Saver(partNumber, data, isLast);
+                saver.savePart();
+
         } else {
             response.sendError(400, "REPEAT");
         }
