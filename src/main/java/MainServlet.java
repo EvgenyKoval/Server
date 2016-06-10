@@ -21,12 +21,11 @@ public class MainServlet extends HttpServlet {
         data = Base64.base64Decode(data);
         System.out.println(data);
 
-        if (isLast){
+        if (isLast) {
             System.out.println("isLast:" + isLast);
             Saver saver = new Saver(partNumber, data, isLast);
             saver.savePart();
-        }
-        else if (hash.equals(DigestUtils.md5Hex(data))) {
+        } else if (hash.equals(DigestUtils.md5Hex(data))) {
             Saver saver = new Saver(partNumber, data);
             saver.savePart();
         } else {
