@@ -1,4 +1,5 @@
 import com.sun.xml.internal.messaging.saaj.util.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +26,7 @@ public class MainServlet extends HttpServlet {
             Saver saver = new Saver(partNumber, data, isLast);
             saver.savePart();
         }
-        else if (true/*hash.equals(DigestUtils.md5Hex(data))*/) {
+        else if (hash.equals(DigestUtils.md5Hex(data))) {
             Saver saver = new Saver(partNumber, data);
             saver.savePart();
         } else {
